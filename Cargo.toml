@@ -13,3 +13,6 @@ keywords = ["trie", "tree", "hash", "data-structure", "collection"]
 
 [lib]
 name = "sequence_trie"
+
+[features]
+btreemap = []
