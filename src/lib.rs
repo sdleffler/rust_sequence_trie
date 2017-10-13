@@ -395,6 +395,11 @@ where
     pub fn children_with_keys<'a>(&'a self) -> Vec<(&'a K, &'a Self)> {
         self.children.iter().collect()
     }
+
+    /// Extract the possible value and children of this sequence trie.
+    pub fn into_inner(self) -> (Option<V>, HashMap<K, Self, S>) {
+        (self.value, self.children)
+    }
 }
 
 /// Iterator over the keys and values of a `SequenceTrie`.
