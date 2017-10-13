@@ -14,14 +14,16 @@ fn make_trie() -> SequenceTrie<char, u32> {
 #[test]
 fn get() {
     let trie = make_trie();
-    let data = [(vec![], Some(0u32)),
-                (vec!['a'], Some(1u32)),
-                (vec!['a', 'b'], None),
-                (vec!['a', 'b', 'c'], None),
-                (vec!['a', 'b', 'x'], None),
-                (vec!['a', 'b', 'c', 'd'], Some(4u32)),
-                (vec!['a', 'b', 'x', 'y'], Some(25u32)),
-                (vec!['b', 'x', 'y'], None)];
+    let data = [
+        (vec![], Some(0u32)),
+        (vec!['a'], Some(1u32)),
+        (vec!['a', 'b'], None),
+        (vec!['a', 'b', 'c'], None),
+        (vec!['a', 'b', 'x'], None),
+        (vec!['a', 'b', 'c', 'd'], Some(4u32)),
+        (vec!['a', 'b', 'x', 'y'], Some(25u32)),
+        (vec!['b', 'x', 'y'], None),
+    ];
     for &(ref key, value) in data.iter() {
         assert_eq!(trie.get(key), value.as_ref());
     }
@@ -38,15 +40,17 @@ fn get_mut() {
 #[test]
 fn get_ancestor() {
     let trie = make_trie();
-    let data = [(vec![], 0u32),
-                (vec!['a'], 1u32),
-                (vec!['a', 'b'], 1u32),
-                (vec!['a', 'b', 'c'], 1u32),
-                (vec!['a', 'b', 'c', 'd'], 4u32),
-                (vec!['a', 'b', 'x'], 1u32),
-                (vec!['a', 'b', 'x', 'y'], 25u32),
-                (vec!['p', 'q'], 0u32),
-                (vec!['a', 'p', 'q'], 1u32)];
+    let data = [
+        (vec![], 0u32),
+        (vec!['a'], 1u32),
+        (vec!['a', 'b'], 1u32),
+        (vec!['a', 'b', 'c'], 1u32),
+        (vec!['a', 'b', 'c', 'd'], 4u32),
+        (vec!['a', 'b', 'x'], 1u32),
+        (vec!['a', 'b', 'x', 'y'], 25u32),
+        (vec!['p', 'q'], 0u32),
+        (vec!['a', 'p', 'q'], 1u32),
+    ];
     for &(ref key, value) in data.iter() {
         assert_eq!(*trie.get_ancestor(key).unwrap(), value);
     }
@@ -206,7 +210,7 @@ fn map() {
     trie.insert(&[5u32], 10u32);
     trie.map(|node| node.value().map(|x| x + 1));
     for (k, v) in trie.iter() {
-        assert_eq!(*v, 2*k[0] + 1);
+        assert_eq!(*v, 2 * k[0] + 1);
     }
 }
 
